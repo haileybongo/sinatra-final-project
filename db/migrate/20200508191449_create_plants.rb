@@ -1,4 +1,4 @@
-class CreatePlants < ActiveRecord::Migration
+class CreatePlants < ActiveRecord::Migration[4.2]
   def change
     create_table :plants do |t|
       t.integer :user_id
