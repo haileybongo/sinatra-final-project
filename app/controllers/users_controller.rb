@@ -27,7 +27,6 @@ class UsersController < ApplicationController
   end
 
   get "/home" do 
-    binding.pry
     if logged_in?
       @user = current_user 
       erb :"/users/home.html"
@@ -70,7 +69,6 @@ class UsersController < ApplicationController
 
   post '/login' do
     user = User.find_by(:username => params[:username])
-    
     if user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect "/home"
