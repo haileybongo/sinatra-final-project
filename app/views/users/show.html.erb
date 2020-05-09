@@ -1,1 +1,15 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<h2><%=@user.username%>'s Current Plants </h2>
+
+<% if @plants != [] %>
+<ul>
+<% @plants.each do |plant| %>
+        <li><h3><a href="/plants/#{plant.id}><%= plant.name %><h3> </a> </li>
+    <%end%>
+    </ul>
+<% else %>
+    No current plants! <a href="/plants/new"> Create one </a> </br>
+<%end%>
+<h4><a href="/plant/new"> Create a new plant </a> </h4>
+<h4><a href="/plants"> See all plants</a> </h4></br>
+
+

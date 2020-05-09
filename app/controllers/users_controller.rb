@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   get '/users/:id' do
     #READ User 
     @user = User.find_by(:id => params[:id])
-    @tweets = Tweet.all.select {|tweet| tweet.user_id == @user.id}
+    @plants = Plant.all.select {|plant| plant.user_id == @user.id}
     erb :"/users/show.html"
   end
 
