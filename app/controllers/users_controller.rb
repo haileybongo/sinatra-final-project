@@ -12,9 +12,8 @@ class UsersController < ApplicationController
     
   post "/signup" do
     #CREATE User
-    binding.pry
     if params[:username] != "" && params[:password] != ""  && params[:email]!= "" 
-      user = User.new(:username => params[:username], :password => params[:password], :email => params[:email]) 	
+      user = User.create(:username => params[:username], :password => params[:password], :email => params[:email]) 	
         if user.save && user.username != ""
           session[:user_id] = user.id
           @user = current_user 
@@ -28,9 +27,10 @@ class UsersController < ApplicationController
   end
 
   get "/home" do 
+    binding.pry
     if logged_in?
       @user = current_user 
-      erb :home
+      erb :"/users/home.html"
     else
       redirect '/login'
     end
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     if logged_in?
       redirect '/tweets'
     else
-      erb :'users/login'
+      erb :'users/login.html'
     end  
   end
 
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
     
     if user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect "/tweets"
+      redirect "/home"
     else
       redirect "/failure"
     end
