@@ -1,12 +1,13 @@
 <!doctype html>
 <html>
   <head>
-    <title>Welcome to Plant Tracker!</title>
+    <h1>Welcome, <%= @user.username%>!</h1>
   </head>
   <body>
-    <p> Plant tracker is a tool to help you easily track all of your plants and their care needs. 
-    <div class="container">
-      <p> Please <a href="/signup">Sign Up</a> or <a href="/login">Log In</a> to get started.
+    <p> What would you like to do?
+    <div class="container"> 
+      <a href="/user/#{@user.id}">View all of your plants</a> </br>
+      <a href="/plant/new">Add a new plant</a> 
     </div>
 
 
