@@ -1,7 +1,13 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<h1> <%= @plant.name %> Information </h1>
 
-t.integer :user_id
-t.string :name
-t.string :notes
-t.string :water_id
-t.string :light
+<ul>
+    <li><h3> Name: <%= plant.name %><h3> </li>
+    <li><h3> Light: <%= plant.light%><h3> </li>
+    <li><h3> Notes: <%= plant.notes %><h3> </li>
+    </ul>
+
+<h4><a href="/plant/new"> Create a new plant </a> </h4>
+<h4><a href="/home"> Home</a> </h4></br>
+
+
+

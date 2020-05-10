@@ -1,1 +1,16 @@
-<h1>This is the Model's index page.</h1>
+<h1> Browse All Users Plants! </h1>
+
+<% if @plants != [] %>
+<ul>
+<% @plants.each do |plant| %>
+        <li><h3><a href="/plants/#{plant.id}> <%= plant.name %><h3> </a> </li>
+    <%end%>
+    </ul>
+<% else %>
+    No current plants! <a href="/plants/new"> Create one </a> </br>
+<%end%>
+<h4><a href="/plant/new"> Create a new plant </a> </h4>
+<h4><a href="/home"> Home</a> </h4></br>
+
+
+
