@@ -12,7 +12,6 @@ class UsersController < ApplicationController
     
   post "/signup" do
     #CREATE User
-    binding.pry
     if params[:username] != "" && params[:password] != ""  && params[:email]!= "" 
       if User.find_by(:email => params[:email]) == nil
         if User.find_by(:username => params[:username]) == nil

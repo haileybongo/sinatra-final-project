@@ -6,14 +6,8 @@
   Summer Watering Schedule: <input type="text" name="summer"><br>
   Soil Moisture: <input type="text" name="soil"><br>
   Humitidy Levels: <input type="text" name="humidity"><br>
+  <input type = "hidden" value = "#{@plant.id} name = "plant_id"">
   <input type="submit" id="submit">
 
 </form>
 
-
-t.integer :plant_id
-t.string :name
-t.string :winter
-t.string :summer
-t.string :soil
-t.string :humidity

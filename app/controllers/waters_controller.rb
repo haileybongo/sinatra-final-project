@@ -11,8 +11,9 @@ class WatersController < ApplicationController
     end
   end
 
-  get '/waters/new' do
+  get '/waters/:id/new' do
     if logged_in?
+      @plant = Plant.find_by(:id => params[:id]) 
       erb :"/waters/new.html"
     else
       redirect "/login"
@@ -22,10 +23,7 @@ class WatersController < ApplicationController
   post "/waters" do
     if params[:content] != ""
         @water= Water.create(params)
-        plant = Plant.find_by(:id => params[:plant_name])
-        @water.plant_id = plant.id
-        @water.save
-        redirect "/water/#{@water.id}"
+        redirect "/waters/#{@water.id}"
     else 
         redirect "/waters/new"
     end
@@ -34,8 +32,9 @@ class WatersController < ApplicationController
   # GET: /waters/5
   get "/waters/:id" do
     if logged_in?
-      @water= water.find_by(:id => params[:id])
-      @user = User.find_by(:id => @plant.user_id)
+      @water= Water.find_by(:id => params[:id])
+      @plant = Plant.find_by(:id => @water.plant_id)
+      binding.pry
       erb :"/waters/show.html"
     else 
         redirect "/login"

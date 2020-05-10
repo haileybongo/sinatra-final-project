@@ -1,1 +1,16 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<h1> <%= @water.name %> </h1>
+
+<ul>
+    <li><h3> Winter Watering Schedule: </h3> <%= @water.winter%><h3> </li>
+    <li><h3> Summer Watering Schedule: </h3> <%= @water.summer %><h3> </li>
+    <li><h3> Soil Moisure: </h3> <%= @water.soil%><h3> </li>
+    <li><h3> Humidity Levels: </h3> <%= @water.humidity %><h3> </li>
+    </ul>
+</br>
+
+<h4><a href="/plants/<%=@plant.id%>"> Back to <%=@plant.name%></a> </h4>
+<h4><a href="/waters/<%=@water.id%>/edit "> Edit Watering Schedule</a> </h4>
+<h4><a href="/home"> Home</a> </h4></br>
+
+
+
