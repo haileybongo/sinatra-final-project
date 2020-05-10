@@ -1,1 +1,19 @@
-<h1>Insert the form to create a new instance of your model.</h1>
+<form action='/waters' method="post"> 
+<h3>Enter New Watering Requirements</h3> </br>
+<h4>Content: </h4> 
+  Name: <input type="text" name="name"><br>
+  Winter Watering Schedule: <input type="text" name="winter"><br>
+  Summer Watering Schedule: <input type="text" name="summer"><br>
+  Soil Moisture: <input type="text" name="soil"><br>
+  Humitidy Levels: <input type="text" name="humidity"><br>
+  <input type="submit" id="submit">
+
+</form>
+
+
+t.integer :plant_id
+t.string :name
+t.string :winter
+t.string :summer
+t.string :soil
+t.string :humidity
