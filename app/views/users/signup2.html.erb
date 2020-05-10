@@ -1,0 +1,15 @@
+<%if @email != nil%>
+<h3> Sorry, email taken! Please try again. </h3>
+<% end %>
+
+<%if @username != nil%>
+<h3> Sorry, username taken! Please try again. </h3>
+<% end %>
+
+<h3>Sign Up</h3>
+<form action="/signup" method="POST">
+  <input type="text" name="username" placeholder="Username:">
+  <input type="password" name="password" placeholder="Password:">
+  <input type="email" name="email" placeholder="Email:">
+  <input type="submit" value="Sign Up">
+</form>

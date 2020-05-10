@@ -12,15 +12,26 @@ class UsersController < ApplicationController
     
   post "/signup" do
     #CREATE User
+    binding.pry
     if params[:username] != "" && params[:password] != ""  && params[:email]!= "" 
-      user = User.create(:username => params[:username], :password => params[:password], :email => params[:email]) 	
-        if user.save && user.username != ""
-          session[:user_id] = user.id
-          @user = current_user 
-          redirect "/home"
+      if User.find_by(:email => params[:email]) == nil
+        if User.find_by(:username => params[:username]) == nil
+          user = User.create(:username => params[:username], :password => params[:password], :email => params[:email]) 	
+            if user.save && user.username != ""
+              session[:user_id] = user.id
+              @user = current_user 
+              redirect "/home"
+            else
+              redirect "/signup"
+            end
         else
-            redirect "/signup"
+          @username = params[:username]
+          erb :'users/signup2.html'
         end
+      else
+        @email = params[:email]
+        erb :'users/signup2.html'
+      end
     else
       redirect "/signup"
     end
@@ -82,7 +93,7 @@ class UsersController < ApplicationController
       session.clear
       redirect '/login'
     else
-      redirect '/login'
+      redirect '/'
     end
   end
 

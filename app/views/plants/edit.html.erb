@@ -2,21 +2,25 @@
  <body>
     <h1>Edit your plant</h1>
     <h3>Current Information:</h3>
-    <h4> <%= @plant.name %> Information </h4>
+
         <ul>
-            <li><p> Name: <%= plant.name %></p> </li>
-            <li><p> Light: <%= plant.light%></p> </li>
-            <li><p> Notes: <%= plant.notes %></p> </li>
+            <li><p> Name: <%= @plant.name %></p> </li>
+            <li><p> Light: <%= @plant.light%></p> </li>
+            <li><p> Notes: <%= @plant.notes %></p> </li>
             </ul>
     <h3>New Information:</h3>
   
     <form method = "POST" action = patch "/plants/:id">
-    <input type="text" name="name"><br>
-    <input type="text" name="light"><br>
-    <input type="text" name="notes"><br>
+    Name :<input type="text" name="name"><br>
+    Light: <input type="text" name="light"><br>
+    Notes: <input type="text" name="notes"><br>
      <input id="hidden" type="hidden" name="_method" value="PATCH">
     <input type = "submit" id = "submit">
    </form>
+
+   <form method="post" action="/plants/<%= @plant.id%>/delete">
+    <input id="hidden" type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete Plant">
 
  </body>
 </html>

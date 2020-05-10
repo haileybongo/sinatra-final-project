@@ -56,10 +56,21 @@ class PlantsController < ApplicationController
   end
 
   # PATCH: /plants/5
-  patch "/plants/:id" do
+  patch "/plants/:id/patch" do
     if params["plant"] != ""
       @plant = Plant.find_by(:id => params[:id])
-      @plant.update(params["plant"])
+      if params[:name] != ""
+        @plant.name = params["name"]
+        @plant.save
+      end
+      if params[:light] != ""
+        @plant.light = params["light"]
+        @plant.save
+      end
+      if params[:notes] != ""
+        @plant.notes = params ["notes"]
+        @plant.save
+      end
       redirect "/plants/#{@plant.id}"
     else   
         redirect "/plants/#{params[:id]}/edit"
