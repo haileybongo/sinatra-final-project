@@ -1,33 +1,31 @@
-class PlantsController < ApplicationController
+class WatersController < ApplicationController
 
-  get '/plants' do
+  get '/waters' do
     #READ plants
     if logged_in?
       @user = current_user
-      @plants = Plant.all
-      erb :"/plants/index.html"
+      @waters = Water.all
+      erb :"/waters/index.html"
     else
       redirect "/login"
     end
   end
 
-  # GET: /plants/new
-  get '/plants/new' do
+  get '/waters/new' do
     if logged_in?
-      erb :"/plants/new.html"
+      erb :"/waters/new.html"
     else
       redirect "/login"
      end
   end
 
-  # POST: /plants
-  post "/plants" do
+  post "/waters" do
     if params[:content] != ""
-        @plant= Plant.create(params)
-        user = User.find_by(:id => session[:user_id])
-        @plant.user_id = user.id
-        @plant.save
-        redirect "/plants/#{@plant.id}"
+        @water= Water.create(params)
+        plant = Plant.find_by(:id => session[:user_id])
+        @water.plant_id = plant.id
+        @water.save
+        redirect "/water/#{@water.id}"
     else 
         redirect "/plants/new"
     end
