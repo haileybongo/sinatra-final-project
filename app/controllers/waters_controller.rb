@@ -1,7 +1,7 @@
 class WatersController < ApplicationController
 
   get '/waters' do
-    #READ plants
+    #READ waters
     if logged_in?
       @user = current_user
       @waters = Water.all
@@ -22,67 +22,67 @@ class WatersController < ApplicationController
   post "/waters" do
     if params[:content] != ""
         @water= Water.create(params)
-        plant = Plant.find_by(:id => session[:user_id])
+        plant = Plant.find_by(:id => params[:plant_name])
         @water.plant_id = plant.id
         @water.save
         redirect "/water/#{@water.id}"
     else 
-        redirect "/plants/new"
+        redirect "/waters/new"
     end
   end
 
-  # GET: /plants/5
-  get "/plants/:id" do
+  # GET: /waters/5
+  get "/waters/:id" do
     if logged_in?
-      @plant = current_plant(params[:id])
+      @water= water.find_by(:id => params[:id])
       @user = User.find_by(:id => @plant.user_id)
-      erb :"/plants/show.html"
+      erb :"/waters/show.html"
     else 
         redirect "/login"
     end
   end
 
-  # GET: /plants/5/edit
-  get "/plants/:id/edit" do
+  # GET: /waters/5/edit
+  get "/waters/:id/edit" do
     if logged_in?
-      @plant = Plant.find_by(:id => params[:id])
+      @water= water.find_by(:id => params[:id])
       @user = User.find_by(:id => @plant.user_id)
-      erb :"/plants/edit.html"
+      erb :"/waters/edit.html"
     else
         redirect "/login" 
     end 
   end
 
-  # PATCH: /plants/5
-  patch "/plants/:id/patch" do
-    if params["plant"] != ""
-      @plant = Plant.find_by(:id => params[:id])
+  # PATCH: /waters/5
+  patch "/waters/:id/patch" do
+    if params["water"] != ""
+      @water = water.find_by(:id => params[:id])
       if params[:name] != ""
-        @plant.name = params["name"]
-        @plant.save
+        @water.name = params["name"]
+        @water.save
       end
       if params[:light] != ""
-        @plant.light = params["light"]
-        @plant.save
+        @water.light = params["light"]
+        @water.save
       end
       if params[:notes] != ""
-        @plant.notes = params ["notes"]
-        @plant.save
+        @water.notes = params ["notes"]
+        @water.save
       end
-      redirect "/plants/#{@plant.id}"
+      redirect "/waters/#{@water.id}"
     else   
-        redirect "/plants/#{params[:id]}/edit"
+        redirect "/waters/#{params[:id]}/edit"
     end
   end
 
-  # DELETE: /plants/5/delete
-  delete "/plants/:id/delete" do
-    @plant = Plant.find_by(:id => params[:id])
-    if logged_in? && current_user == User.find_by(:id => @plant.user_id)
-        @plant.delete 
-        redirect to '/plants'
+  # DELETE: /waters/5/delete
+  delete "/waters/:id/delete" do
+    @water = water.find_by(:id => params[:id])
+    if logged_in? && current_user == User.find_by(:id => @water.user_id)
+        @water.delete 
+        redirect to '/waters'
     else
-        redirect to '/plants' 
+        redirect to '/waters' 
     end
   end
 
@@ -96,7 +96,7 @@ helpers do
     end
 
     def current_plant(id)
-      Plant.find_by(:id => id)
+      water.find_by(:id => id)
     end
   end
 end
