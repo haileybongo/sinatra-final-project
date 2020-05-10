@@ -1,22 +1,23 @@
 class PlantsController < ApplicationController
 
-  get "/plants" do
+  get '/plants' do
     #READ plants
     if logged_in?
       @user = current_user
       @plants = Plant.all
       erb :"/plants/index.html"
-  else
+    else
       redirect "/login"
+    end
   end
 
   # GET: /plants/new
-  get "/plants/new" do
+  get '/plants/new' do
     if logged_in?
       erb :"/plants/new.html"
-      else
-          redirect "/login"
-      end
+    else
+      redirect "/login"
+     end
   end
 
   # POST: /plants
@@ -64,8 +65,6 @@ class PlantsController < ApplicationController
         redirect "/plants/#{params[:id]}/edit"
     end
   end
-
-end
 
   # DELETE: /plants/5/delete
   delete "/plants/:id/delete" do

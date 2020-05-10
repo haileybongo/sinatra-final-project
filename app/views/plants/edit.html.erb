@@ -1,1 +1,22 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<html>
+ <body>
+    <h1>Edit your plant</h1>
+    <h3>Current Information:</h3>
+    <h4> <%= @plant.name %> Information </h4>
+        <ul>
+            <li><p> Name: <%= plant.name %></p> </li>
+            <li><p> Light: <%= plant.light%></p> </li>
+            <li><p> Notes: <%= plant.notes %></p> </li>
+            </ul>
+    <h3>New Information:</h3>
+  
+    <form method = "POST" action = patch "/plants/:id">
+    <input type="text" name="name"><br>
+    <input type="text" name="light"><br>
+    <input type="text" name="notes"><br>
+     <input id="hidden" type="hidden" name="_method" value="PATCH">
+    <input type = "submit" id = "submit">
+   </form>
+
+ </body>
+</html>
