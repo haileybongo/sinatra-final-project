@@ -1,1 +1,30 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<html>
+ <body>
+    <h1>Edit Watering Requirement Details</h1>
+    <h3>Current Information:</h3>
+
+        <ul>
+            <li><p> Name: <%= @water.name %></p> </li>
+            <li><p> Winter Watering Schedule: <%= @water.winter%></p> </li>
+            <li><p> Summer Watering Schedule: <%= @water.summer %></p> </li>
+            <li><p> Soil Moisture: <%= @water.soil %></p> </li>
+            <li><p> Humidity: <%= @water.humidity %></p> </li>
+            </ul>
+    <h3>New Information:</h3>
+  
+    <form method = "POST" action = patch "/waters/:id">
+    Name: <input type="text" name="name"><br>
+    Summer Watering Schedule: <input type="text" name="summer"><br>
+    Winter Watering Schedule: <input type="text" name="winter"><br>
+    Soil Moisture: <input type="text" name="soil"><br>
+    Humidity: <input type="text" name="humidity"><br>
+     <input id="hidden" type="hidden" name="_method" value="PATCH">
+    <input type = "submit" id = "submit">
+   </form>
+
+   <form method="post" action="/plants/<%= @plant.id%>/delete">
+    <input id="hidden" type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete Plant">
+
+ </body>
+</html>

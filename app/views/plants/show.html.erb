@@ -4,6 +4,15 @@
     <li><h3> Name: </h3> <%= @plant.name %><h3> </li>
     <li><h3> Light: </h3> <%= @plant.light%><h3> </li>
     <li><h3> Notes: </h3> <%= @plant.notes %><h3> </li>
+    <%if @water != nil %>
+        <li><h3> Watering Requirements: <h3>
+            <ul>
+            <li>@water.winter </li>
+            <li>@water.summer </li>
+            <li>@water.soil </li>
+            <li>@water.humidity </li>
+            </ul>
+        </li>
     </ul>
 </br>
 

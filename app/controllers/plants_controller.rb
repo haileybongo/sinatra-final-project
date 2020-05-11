@@ -37,7 +37,7 @@ class PlantsController < ApplicationController
   get "/plants/:id" do
     if logged_in?
       @plant = current_plant(params[:id])
-      @user = User.find_by(:id => @plant.user_id)
+      @water = Water.find_by(:plant_id => @plant.id)
       erb :"/plants/show.html"
     else 
         redirect "/login"
