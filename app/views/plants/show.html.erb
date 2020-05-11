@@ -5,19 +5,24 @@
     <li><h3> Light: </h3> <%= @plant.light%><h3> </li>
     <li><h3> Notes: </h3> <%= @plant.notes %><h3> </li>
     <%if @water != nil %>
-        <li><h3> Watering Requirements: <h3>
+        <li><h3> Watering Requirements: </h3>
             <ul>
-            <li>@water.winter </li>
-            <li>@water.summer </li>
-            <li>@water.soil </li>
-            <li>@water.humidity </li>
+            <li><b>Winter Watering Schedule:</b> <%=@water.winter%> </li>
+            <li><b>Summer Watering Schedule:</b> <%=@water.summer%></li>
+            <li><b>Soil Moisture:</b> <%=@water.soil%></li>
+            <li><b>Humidity:</b> <%=@water.humidity%></li>
             </ul>
         </li>
+        <%end%>
     </ul>
 </br>
-
+<%if @water != nil %>
+    <h4><a href="/waters/<%=@water.id%>/edit "> Edit Watering Requirements</a> </h4>
+<%else%>
+    <h4><a href="/waters/<%=@plant.id%>/new "> Add new Watering Requirements</a> </h4>
+<%end%>
+</br>
 <h4><a href="/plants/<%=@plant.id%>/edit "> Edit plant</a> </h4>
-<h4><a href="/waters/<%=@plant.id%>/new "> Add new Watering Requirements</a> </h4>
 <h4><a href="/plants/new"> Create a new plant </a> </h4>
 <h4><a href="/home"> Home</a> </h4></br>
 

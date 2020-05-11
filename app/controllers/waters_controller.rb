@@ -34,7 +34,6 @@ class WatersController < ApplicationController
     if logged_in?
       @water= Water.find_by(:id => params[:id])
       @plant = Plant.find_by(:id => @water.plant_id)
-      binding.pry
       erb :"/waters/show.html"
     else 
         redirect "/login"
@@ -44,8 +43,7 @@ class WatersController < ApplicationController
   # GET: /waters/5/edit
   get "/waters/:id/edit" do
     if logged_in?
-      @water= water.find_by(:id => params[:id])
-      @user = User.find_by(:id => @plant.user_id)
+      @water= Water.find_by(:id => params[:id])
       erb :"/waters/edit.html"
     else
         redirect "/login" 
@@ -55,17 +53,25 @@ class WatersController < ApplicationController
   # PATCH: /waters/5
   patch "/waters/:id/patch" do
     if params["water"] != ""
-      @water = water.find_by(:id => params[:id])
+      @water = Water.find_by(:id => params[:id])
       if params[:name] != ""
         @water.name = params["name"]
         @water.save
       end
-      if params[:light] != ""
-        @water.light = params["light"]
+      if params[:winter] != ""
+        @water.winter = params["winter"]
         @water.save
       end
-      if params[:notes] != ""
-        @water.notes = params ["notes"]
+      if params[:summer] != ""
+        @water.notes = params ["summer"]
+        @water.save
+      end
+      if params[:soil] != ""
+        @water.notes = params ["soil"]
+        @water.save
+      end
+      if params[:humidity] != ""
+        @water.notes = params ["humidity"]
         @water.save
       end
       redirect "/waters/#{@water.id}"
@@ -76,12 +82,14 @@ class WatersController < ApplicationController
 
   # DELETE: /waters/5/delete
   delete "/waters/:id/delete" do
-    @water = water.find_by(:id => params[:id])
-    if logged_in? && current_user == User.find_by(:id => @water.user_id)
+    @water = Water.find_by(:id => params[:id])
+    @plant = Plant.find_by(:id => @water.plant_id)
+    @id = @plant.id
+    if logged_in? && current_user == User.find_by(:id => @plant.user_id)
         @water.delete 
-        redirect to '/waters'
+        redirect to "/plants/#{@plant.id}"
     else
-        redirect to '/waters' 
+      redirect to "/plants/#{@plant.id}" 
     end
   end
 
