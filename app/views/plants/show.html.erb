@@ -16,10 +16,11 @@
         <%end%>
     </ul>
 </br>
-<%if @water != nil %>
+<%if @water != nil && @plant.user_id == @current_user.id %>
     <h4><a href="/waters/<%=@water.id%>/edit "> Edit Watering Requirements</a> </h4>
-<%else%>
+<%elsif @water == nil && @plant.user_id == @current_user.id%>
     <h4><a href="/waters/<%=@plant.id%>/new "> Add new Watering Requirements</a> </h4>
+<%else%>
 <%end%>
 </br>
 <%if @user.id == @current_user.id %>

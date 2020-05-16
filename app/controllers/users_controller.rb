@@ -12,39 +12,16 @@ class UsersController < ApplicationController
     
   post "/signup" do
     #CREATE User
-    binding.pry
     @user = User.create(params)
-    if user.save && user.username != ""
-      session[:user_id] = user.id
+    if @user.save && @user.username != ""
+      session[:user_id] = @user.id
       @user = current_user 
       redirect "/home"
     else
-      redirect "/signup"
+      @errors = @user.errors.full_messages
+      erb :'users/new.html'
     end
   end
-    # if params[:username] != "" && params[:password] != ""  && params[:email]!= "" 
-    #   if User.find_by(:email => params[:email]) == nil
-    #     if User.find_by(:username => params[:username]) == nil
-    #       user = User.create(:username => params[:username], :password => params[:password], :email => params[:email]) 	
-    #         if user.save && user.username != ""
-    #           session[:user_id] = user.id
-    #           @user = current_user 
-    #           redirect "/home"
-    #         else
-    #           redirect "/signup"
-    #         end
-    #     else
-    #       @username = params[:username]
-    #       erb :'users/signup2.html'
-    #     end
-    #   else
-    #     @email = params[:email]
-    #     erb :'users/signup2.html'
-    #   end
-    # else
-    #   redirect "/signup"
-    # end
-
 
   get "/home" do 
     if logged_in?
@@ -89,11 +66,11 @@ class UsersController < ApplicationController
 
   post '/login' do
     user = User.find_by(:username => params[:username])
-    if user.authenticate(params[:password])
+    if user != nil && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect "/home"
     else
-      redirect "/failure"
+      redirect "/login"
     end
   end
 

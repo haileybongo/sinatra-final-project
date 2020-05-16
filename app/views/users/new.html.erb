@@ -1,4 +1,10 @@
 <h3>Sign Up</h3>
+<%if @errors != nil%>
+  <% @errors.each do |message| %> 
+    Sorry, <%=message %>. Please try again. </br>
+    <%end%>
+  <%end%>
+  </br>
 <form action="/signup" method="POST">
   <input type="text" name="username" placeholder="Username:">
   <input type="password" name="password" placeholder="Password:">

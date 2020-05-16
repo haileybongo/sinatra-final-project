@@ -55,6 +55,7 @@ class PlantsController < ApplicationController
         erb :"/plants/edit.html"
       else
         redirect "/plants/#{@plant.id}"
+      end
     else
         redirect "/login" 
     end 
