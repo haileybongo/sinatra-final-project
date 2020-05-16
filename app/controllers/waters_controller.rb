@@ -23,7 +23,8 @@ class WatersController < ApplicationController
   post "/waters" do
     if params[:content] != ""
         @water= Water.create(params)
-        redirect "/waters/#{@water.id}"
+        @plant = Plant.find_by(:id => @water.plant_id)
+        redirect "/plants/#{@plant.id}"
     else 
         redirect "/waters/new"
     end

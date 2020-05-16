@@ -12,29 +12,39 @@ class UsersController < ApplicationController
     
   post "/signup" do
     #CREATE User
-    if params[:username] != "" && params[:password] != ""  && params[:email]!= "" 
-      if User.find_by(:email => params[:email]) == nil
-        if User.find_by(:username => params[:username]) == nil
-          user = User.create(:username => params[:username], :password => params[:password], :email => params[:email]) 	
-            if user.save && user.username != ""
-              session[:user_id] = user.id
-              @user = current_user 
-              redirect "/home"
-            else
-              redirect "/signup"
-            end
-        else
-          @username = params[:username]
-          erb :'users/signup2.html'
-        end
-      else
-        @email = params[:email]
-        erb :'users/signup2.html'
-      end
+    binding.pry
+    @user = User.create(params)
+    if user.save && user.username != ""
+      session[:user_id] = user.id
+      @user = current_user 
+      redirect "/home"
     else
       redirect "/signup"
     end
   end
+    # if params[:username] != "" && params[:password] != ""  && params[:email]!= "" 
+    #   if User.find_by(:email => params[:email]) == nil
+    #     if User.find_by(:username => params[:username]) == nil
+    #       user = User.create(:username => params[:username], :password => params[:password], :email => params[:email]) 	
+    #         if user.save && user.username != ""
+    #           session[:user_id] = user.id
+    #           @user = current_user 
+    #           redirect "/home"
+    #         else
+    #           redirect "/signup"
+    #         end
+    #     else
+    #       @username = params[:username]
+    #       erb :'users/signup2.html'
+    #     end
+    #   else
+    #     @email = params[:email]
+    #     erb :'users/signup2.html'
+    #   end
+    # else
+    #   redirect "/signup"
+    # end
+
 
   get "/home" do 
     if logged_in?
@@ -96,14 +106,5 @@ class UsersController < ApplicationController
     end
   end
 
-  helpers do
-    def logged_in?
-      !!session[:user_id]
-    end
-
-    def current_user
-      User.find(session[:user_id])
-    end
-  end
 
 end

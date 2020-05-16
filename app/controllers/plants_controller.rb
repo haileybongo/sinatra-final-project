@@ -24,7 +24,7 @@ class PlantsController < ApplicationController
   post "/plants" do
     if params[:content] != ""
         @plant= Plant.create(params)
-        user = User.find_by(:id => session[:user_id])
+        user = User.find(session[:user_id])
         @plant.user_id = user.id
         @plant.save
         redirect "/plants/#{@plant.id}"
@@ -38,6 +38,8 @@ class PlantsController < ApplicationController
     if logged_in?
       @plant = current_plant(params[:id])
       @water = Water.find_by(:plant_id => @plant.id)
+      @user = User.find_by(:id => @plant.user_id)
+      @current_user = current_user
       erb :"/plants/show.html"
     else 
         redirect "/login"
@@ -46,10 +48,13 @@ class PlantsController < ApplicationController
 
   # GET: /plants/5/edit
   get "/plants/:id/edit" do
-    if logged_in?
+    if logged_in? 
       @plant = Plant.find_by(:id => params[:id])
       @user = User.find_by(:id => @plant.user_id)
-      erb :"/plants/edit.html"
+      if @user.id == current_user.id
+        erb :"/plants/edit.html"
+      else
+        redirect "/plants/#{@plant.id}"
     else
         redirect "/login" 
     end 
@@ -88,17 +93,9 @@ class PlantsController < ApplicationController
     end
   end
 
-helpers do
-    def logged_in?
-      !!session[:user_id]
-    end
-
-    def current_user
-      User.find(session[:user_id])
-    end
-
+private
     def current_plant(id)
       Plant.find_by(:id => id)
     end
-  end
+
 end

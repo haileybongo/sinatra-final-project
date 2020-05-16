@@ -22,7 +22,9 @@
     <h4><a href="/waters/<%=@plant.id%>/new "> Add new Watering Requirements</a> </h4>
 <%end%>
 </br>
-<h4><a href="/plants/<%=@plant.id%>/edit "> Edit plant</a> </h4>
+<%if @user.id == @current_user.id %>
+    <h4><a href="/plants/<%=@plant.id%>/edit "> Edit plant</a> </h4>
+<%end%>
 <h4><a href="/plants/new"> Create a new plant </a> </h4>
 <h4><a href="/home"> Home</a> </h4></br>
 
