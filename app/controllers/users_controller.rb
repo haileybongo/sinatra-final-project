@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
   get '/users/:id' do
     #READ User 
-    @user = User.find_by(:id => params[:id])
+    @user = User.find(params[:id])
     @plants = Plant.all.select {|plant| plant.user_id == @user.id}
     erb :"/users/show.html"
   end

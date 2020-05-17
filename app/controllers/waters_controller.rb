@@ -13,7 +13,7 @@ class WatersController < ApplicationController
 
   get '/waters/:id/new' do
     if logged_in?
-      @plant = Plant.find_by(:id => params[:id]) 
+      @plant = Plant.find(params[:id]) 
       erb :"/waters/new.html"
     else
       redirect "/login"
@@ -23,7 +23,7 @@ class WatersController < ApplicationController
   post "/waters" do
     if params[:content] != ""
         @water= Water.create(params)
-        @plant = Plant.find_by(:id => @water.plant_id)
+        @plant = Plant.find(@water.plant_id)
         redirect "/plants/#{@plant.id}"
     else 
         redirect "/waters/new"
@@ -33,8 +33,8 @@ class WatersController < ApplicationController
   # GET: /waters/5
   get "/waters/:id" do
     if logged_in?
-      @water= Water.find_by(:id => params[:id])
-      @plant = Plant.find_by(:id => @water.plant_id)
+      @water= Water.find(params[:id])
+      @plant = Plant.find(@water.plant_id)
       erb :"/waters/show.html"
     else 
         redirect "/login"
@@ -44,7 +44,7 @@ class WatersController < ApplicationController
   # GET: /waters/5/edit
   get "/waters/:id/edit" do
     if logged_in?
-      @water= Water.find_by(:id => params[:id])
+      @water= Water.find(params[:id])
       erb :"/waters/edit.html"
     else
         redirect "/login" 
@@ -54,7 +54,7 @@ class WatersController < ApplicationController
   # PATCH: /waters/5
   patch "/waters/:id/patch" do
     if params["water"] != ""
-      @water = Water.find_by(:id => params[:id])
+      @water = Water.find(params[:id])
       if params[:name] != ""
         @water.name = params["name"]
         @water.save
@@ -83,10 +83,10 @@ class WatersController < ApplicationController
 
   # DELETE: /waters/5/delete
   delete "/waters/:id/delete" do
-    @water = Water.find_by(:id => params[:id])
-    @plant = Plant.find_by(:id => @water.plant_id)
+    @water = Water.find(params[:id])
+    @plant = Plant.find(@water.plant_id)
     @id = @plant.id
-    if logged_in? && current_user == User.find_by(:id => @plant.user_id)
+    if logged_in? && current_user == User.find(@plant.user_id)
         @water.delete 
         redirect to "/plants/#{@plant.id}"
     else
@@ -94,17 +94,4 @@ class WatersController < ApplicationController
     end
   end
 
-helpers do
-    def logged_in?
-      !!session[:user_id]
-    end
-
-    def current_user
-      User.find(session[:user_id])
-    end
-
-    def current_plant(id)
-      water.find_by(:id => id)
-    end
-  end
 end
