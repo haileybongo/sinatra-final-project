@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   get "/signup" do
-    #CREATE user 
     if logged_in?
       @user = current_user 
       redirect '/home'
@@ -11,9 +10,8 @@ class UsersController < ApplicationController
   end
     
   post "/signup" do
-    #CREATE User
     @user = User.create(params)
-    if @user.save && @user.username != ""
+    if @user.save && @user.username != "" && @user.email != ""
       session[:user_id] = @user.id
       @user = current_user 
       redirect "/home"
@@ -33,25 +31,21 @@ class UsersController < ApplicationController
   end
 
   get '/users/:id' do
-    #READ User 
     @user = User.find(params[:id])
     @plants = Plant.all.select {|plant| plant.user_id == @user.id}
     erb :"/users/show.html"
   end
 
   get "/users/:id/edit" do
-    #UPDATE user
     erb :"/plants/edit.html"
   end
 
 
   patch "/users/:id" do
-    #UPDATE user
     redirect "/users/:id"
   end
 
   delete "/plants/:id/delete" do
-    #DELETE User
     redirect "/plants"
   end
 

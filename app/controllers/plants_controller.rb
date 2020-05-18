@@ -70,7 +70,7 @@ class PlantsController < ApplicationController
         @plant.save
       end
       if params[:notes] != ""
-        @plant.notes = params ["notes"]
+        @plant.notes = params["notes"]
         @plant.save
       end
       redirect "/plants/#{@plant.id}"

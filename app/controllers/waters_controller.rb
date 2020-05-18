@@ -64,15 +64,15 @@ class WatersController < ApplicationController
         @water.save
       end
       if params[:summer] != ""
-        @water.notes = params ["summer"]
+        @water.summer = params["summer"]
         @water.save
       end
       if params[:soil] != ""
-        @water.notes = params ["soil"]
+        @water.soil = params["soil"]
         @water.save
       end
       if params[:humidity] != ""
-        @water.notes = params ["humidity"]
+        @water.humidity = params["humidity"]
         @water.save
       end
       redirect "/waters/#{@water.id}"
