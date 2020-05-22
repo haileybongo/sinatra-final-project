@@ -1,7 +1,6 @@
 class WatersController < ApplicationController
 
   get '/waters' do
-    #READ waters
     if logged_in?
       @user = current_user
       @waters = Water.all
@@ -30,7 +29,6 @@ class WatersController < ApplicationController
     end
   end
 
-  # GET: /waters/5
   get "/waters/:id" do
     if logged_in?
       @water= Water.find(params[:id])
@@ -41,7 +39,6 @@ class WatersController < ApplicationController
     end
   end
 
-  # GET: /waters/5/edit
   get "/waters/:id/edit" do
     if logged_in?
       @water= Water.find(params[:id])
@@ -51,7 +48,6 @@ class WatersController < ApplicationController
     end 
   end
 
-  # PATCH: /waters/5
   patch "/waters/:id/patch" do
     if params["water"] != ""
       @water = Water.find(params[:id])
@@ -81,7 +77,6 @@ class WatersController < ApplicationController
     end
   end
 
-  # DELETE: /waters/5/delete
   delete "/waters/:id/delete" do
     @water = Water.find(params[:id])
     @plant = Plant.find(@water.plant_id)
