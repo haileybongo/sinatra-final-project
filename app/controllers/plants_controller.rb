@@ -1,7 +1,6 @@
 class PlantsController < ApplicationController
 
   get '/plants' do
-    #READ plants
     if logged_in?
       @user = current_user
       @plants = Plant.all
@@ -79,7 +78,6 @@ class PlantsController < ApplicationController
     end
   end
 
-  # DELETE: /plants/5/delete
   delete "/plants/:id/delete" do
     @plant = current_plant(params[:id])
     if logged_in? && current_user == User.find(@plant.user_id)

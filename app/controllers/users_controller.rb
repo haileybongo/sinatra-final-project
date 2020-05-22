@@ -36,20 +36,6 @@ class UsersController < ApplicationController
     erb :"/users/show.html"
   end
 
-  get "/users/:id/edit" do
-    erb :"/plants/edit.html"
-  end
-
-
-  patch "/users/:id" do
-    redirect "/users/:id"
-  end
-
-  delete "/plants/:id/delete" do
-    redirect "/plants"
-  end
-
-
   get '/login' do
     if logged_in?
       redirect '/home'
