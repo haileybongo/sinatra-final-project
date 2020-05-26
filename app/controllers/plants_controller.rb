@@ -20,10 +20,7 @@ class PlantsController < ApplicationController
 
   post "/plants" do
     if params[:content] != ""
-        @plant= Plant.create(params)
-        user = User.find(session[:user_id])
-        @plant.user_id = user.id
-        @plant.save
+        @plant = current_user.plants.create(params)
         redirect "/plants/#{@plant.id}"
     else 
         redirect "/plants/new"
@@ -34,7 +31,7 @@ class PlantsController < ApplicationController
     if logged_in?
       @plant = current_plant(params[:id])
       @water = Water.find_by(:plant_id => @plant.id)
-      @user = User.find(@plant.user_id)
+      @user = @plant.user
       @current_user = current_user
       erb :"/plants/show.html"
     else 

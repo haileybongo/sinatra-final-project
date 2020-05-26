@@ -10,10 +10,9 @@ class UsersController < ApplicationController
   end
     
   post "/signup" do
-    @user = User.create(params)
-    if @user.save && @user.username != "" && @user.email != ""
+    @user = User.new(params)
+    if @user.save 
       session[:user_id] = @user.id
-      @user = current_user 
       redirect "/home"
     else
       @errors = @user.errors.full_messages
@@ -32,7 +31,7 @@ class UsersController < ApplicationController
 
   get '/users/:id' do
     @user = User.find(params[:id])
-    @plants = Plant.all.select {|plant| plant.user_id == @user.id}
+    @plants = @user.plants
     erb :"/users/show.html"
   end
 

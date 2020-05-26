@@ -3,4 +3,5 @@ class User < ActiveRecord::Base
     has_many :plants
     validates :email, uniqueness: true
     validates :username, uniqueness: true
+    validates :username, :email, presence: true
 end
